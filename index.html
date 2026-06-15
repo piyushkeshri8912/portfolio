@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Piyush Keshri — Portfolio>
+  <title>Piyush Keshri - Portfolio</title>
+  
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Custom CSS Extensions for Chronology Timeline, Skills, and Lightbox overrides -->
+  <style>
+    /* Experience Chronology Timeline styling */
+    .timeline {
+      position: relative;
+      max-width: 850px;
+      margin: var(--space-2xl) auto 0;
+      padding-left: var(--space-xl);
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 9px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--color-border);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: var(--space-xl);
+    }
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+    .timeline-marker {
+      position: absolute;
+      left: -28px;
+      top: 24px;
+      width: 20px;
+      height: 20px;
+      border-radius: var(--radius-full);
+      background: var(--color-card-bg);
+      border: 2px solid var(--color-accent);
+      box-shadow: var(--shadow-neumorphic-raised);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-normal);
+      z-index: 2;
+    }
+    .timeline-item:hover .timeline-marker {
+      background: var(--color-accent);
+      transform: scale(1.15);
+      box-shadow: 0 0 10px rgba(var(--color-accent-rgb), 0.4);
+    }
+    .timeline-content {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      box-shadow: var(--shadow-neumorphic-raised);
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    }
+    .timeline-content:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-neumorphic-hover);
+    }
+    .timeline-header {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: var(--space-sm);
+      gap: var(--space-xs);
+    }
+    @media (min-width: 640px) {
+      .timeline-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+    }
+    .timeline-title-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .timeline-role {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 2px;
+    }
+    .timeline-company {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-secondary);
+      font-weight: 500;
+    }
+    .timeline-date {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: rgba(var(--color-accent-rgb), 0.08);
+      border: 1px solid rgba(var(--color-accent-rgb), 0.15);
+      align-self: flex-start;
+    }
+    @media (min-width: 640px) {
+      .timeline-date {
+        align-self: auto;
+      }
+    }
+    .timeline-desc {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--color-secondary);
+      line-height: 1.6;
+    }
+
+    /* Skills Grid styling */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      margin-top: var(--space-xl);
+    }
+    @media (min-width: 768px) {
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .skills-card {
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow-neumorphic-raised);
+      transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    }
+    .skills-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-neumorphic-hover);
+    }
+    .skills-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+      color: var(--color-accent);
+    }
+    .skills-header svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+    }
+    .skills-category-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 0;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      list-style: none;
+    }
+    .skill-badge {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-secondary);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-neumorphic-inset);
+      transition: all var(--transition-fast);
+    }
+    .skill-badge:hover {
+      color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    /* Lightbox Modal Custom Overrides to work perfectly with app.js */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(9, 9, 11, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity var(--transition-normal);
+    }
+    .modal-overlay.hidden {
+      display: none !important;
+      opacity: 0;
+    }
+    .modal {
+      background: var(--color-card-bg) !important;
+      border: 1px solid var(--color-border) !important;
+      box-shadow: var(--shadow-neumorphic-hover) !important;
+      border-radius: var(--radius-xl) !important;
+      max-width: 650px !important;
+      width: 90% !important;
+      padding: var(--space-xl) !important;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      background: var(--color-card-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-primary);
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-neumorphic-raised);
+      transition: all var(--transition-fast);
+      z-index: 10;
+    }
+    .modal-close-btn:hover {
+      color: var(--color-accent);
+      box-shadow: var(--shadow-neumorphic-hover);
+      transform: rotate(90deg);
+    }
+    .modal-close-btn:active {
+      box-shadow: var(--shadow-neumorphic-pressed);
+    }
+    .modal-image-container {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-neumorphic-inset);
+      margin-bottom: var(--space-lg);
+    }
+    .modal-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .modal-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: var(--space-md);
+    }
+    .modal-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+    .modal-value {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      word-break: break-word;
+    }
+    .modal-desc {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--color-secondary);
+      line-height: 1.6;
+    }
+
+    /* Additional layout adjustments */
+    .about-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+    @media (min-width: 1024px) {
+      .about-container {
+        grid-template-columns: 1fr 1.2fr;
+      }
+    }
+    .about-bio-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .about-expertise-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+    @media (min-width: 1024px) {
+      .contact-container {
+        grid-template-columns: 1fr 1.1fr;
+      }
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .contact-detail-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .detail-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .detail-value {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    .contact-link {
+      color: var(--color-primary);
+      text-decoration: underline;
+      transition: color var(--transition-fast);
+    }
+    .contact-link:hover {
+      color: var(--color-accent);
+    }
+
+    /* Mobile Responsive Custom Overrides (max-width: 767px) */
+    @media (max-width: 767px) {
+      /* Timeline Mobilization */
+      .timeline {
+        padding-left: 1.25rem; /* 20px space on the left */
+        margin-top: var(--space-xl);
+      }
+      .timeline::before {
+        left: 9px; /* Centered line */
+      }
+      .timeline-item {
+        margin-bottom: var(--space-lg);
+        padding-left: 1.25rem; /* Reduced padding-left from 70px to 20px on mobile to close the empty gap */
+      }
+      .timeline-marker {
+        left: -20px; /* Aligns center with line */
+        top: 20px;
+        width: 18px;
+        height: 18px;
+      }
+      .timeline-content {
+        padding: var(--space-md); /* Reduce internal padding from 24px to 16px */
+      }
+      .timeline-role {
+        font-size: 1.15rem;
+      }
+      .timeline-company {
+        font-size: 0.95rem;
+      }
+      .timeline-date {
+        font-size: 0.8rem;
+        padding: 3px 8px;
+      }
+
+      /* Modal Mobilization */
+      .modal {
+        padding: var(--space-md) !important; /* Reduce padding from 32px to 16px to give text room */
+        border-radius: var(--radius-lg) !important;
+      }
+
+      /* Skills Card Mobilization */
+      .skills-card {
+        padding: var(--space-md) !important; /* Reduce padding from 32px to 16px to conserve mobile width */
+      }
+    }
+
+    /* Modal Action Button Styling */
+    .modal-action-btn:hover {
+      color: var(--color-accent) !important;
+      border-color: rgba(37, 99, 235, 0.4) !important;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-neumorphic-hover) !important;
+    }
+    .modal-action-btn:active {
+      box-shadow: var(--shadow-neumorphic-pressed) !important;
+      transform: translateY(0);
+    }
+    body.dark-mode .modal-action-btn:hover {
+      border-color: rgba(59, 130, 246, 0.4) !important;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Accessibility Skip Navigation Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Floating Header & Navigation -->
+  <header class="header" role="banner">
+    <div class="header-container">
+      <a href="#" class="brand-logo" aria-label="Piyush Keshri Portfolio Home">
+        <span class="logo-text">PIYUSH KESHRI</span>
+      </a>
+      
+      <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#experience" class="nav-link">Experience</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme mode">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation menu">
+          <svg class="menu-open-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" x2="20" y1="12" y2="12"/>
+            <line x1="4" x2="20" y1="6" y2="6"/>
+            <line x1="4" x2="20" y1="18" y2="18"/>
+          </svg>
+          <svg class="menu-close-icon hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" x2="6" y1="6" y2="18"/>
+            <line x1="6" x2="18" y1="6" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Overlay -->
+    <div id="mobile-nav" class="mobile-nav" aria-hidden="true">
+      <nav class="mobile-nav-menu">
+        <ul class="mobile-nav-list">
+          <li><a href="#about" class="mobile-nav-link">About</a></li>
+          <li><a href="#experience" class="mobile-nav-link">Experience</a></li>
+          <li><a href="#projects" class="mobile-nav-link">Projects</a></li>
+          <li><a href="#skills" class="mobile-nav-link">Skills</a></li>
+          <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main id="main-content" role="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section" aria-labelledby="hero-title">
+      <div class="container">
+        <span class="hero-subtitle">Student @ IIT Gandhinagar </span>
+        <h1 id="hero-title" class="hero-title">
+          I BUILD THINGS THAT THINK.
+        </h1>
+        <p class="hero-description">
+          I develop Generative AI systems, agentic pipelines, and scalable backends. From RAG-powered assistants to cloud-deployed APIs — I turn ideas into intelligent, production-ready software.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn-primary" role="button">
+            View Projects
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </a>
+          <a href="#contact" class="btn-secondary" role="button">
+            Get in Touch
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section section" aria-labelledby="about-title">
+      <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h2 id="about-title" class="section-title">ABOUT ME</h2>
+        <div class="bio-content" style="text-align: left; margin-top: var(--space-md);">
+          <p>
+            I'm a   undergrad at IIT Gandhinagar with a deep interest in building systems at the intersection of AI and software engineering. I think in pipelines — how data flows, how agents reason, and how backends scale. My work spans Generative AI, agentic architectures, and API design.
+          </p>
+          <p style="margin-top: var(--space-md);">
+           I'm drawn to problems where language models meet real-world constraints: retrieval systems that actually retrieve, agents that actually act, and backends that don't fall over. I'm also actively exploring cloud engineering and how modern infrastructure enables AI products to go from prototype to production.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience / Timeline Section -->
+    <section id="experience" class="experience-section section" aria-labelledby="experience-title">
+      <div class="container">
+        <h2 id="experience-title" class="section-title">Experience</h2>
+        <p class="section-subtitle">Where I have worked and gained experience</p>
+        
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker" aria-hidden="true"></div>
+            <article class="timeline-content">
+              <div class="timeline-header">
+                <div class="timeline-title-group">
+                  <h3 class="timeline-role">LLM Data Pipeline & Dataset Engineering</h3>
+                  <span class="timeline-company">Project Course · IITGN</span>
+                </div>
+                <span class="timeline-date">JAN'26 - APR'26</span>
+              </div>
+              <p class="timeline-desc">
+                Contributed to a faculty-led research initiative focused on developing a 7B-parameter Large Language Model. Designed and implemented an end-to-end pipeline for PDF ingestion, OCR processing, content segmentation, and educational QA dataset creation from JEE/NEET-style resources. Conducted Chain-of-Thought reasoning experiments and collaborated with teams working on synthetic data generation, model training, and multi-turn conversational datasets.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work / Portfolio Grid Section -->
+    <section id="projects" class="portfolio-section" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="projects-title" class="section-title">Projects</h2>
+          <p class="section-subtitle">THINGS I'VE BUILT</p>
+        </div>
+
+        <!-- Projects Grid -->
+        <div id="project-grid" class="project-grid" role="region" aria-live="polite">
+          
+          <!-- Project 1: Nivesh IQ — AI-Powered Investment Assistant-->
+          <article class="project-card neumorphic-outset" data-category="Gen AI" data-title="Nivesh IQ " data-desc="Nivesh IQ is an AI-powered platform that helps users make sense of their investments. It combines financial data processing with an intelligent conversational layer — giving users portfolio insights, analysis, and recommendations through a natural language interface. Built with a FastAPI backend, LangChain agent pipeline, and a React frontend." data-image="images/project_NiveshIQ.png" data-github="https://github.com/piyushkeshri8912/nivesh-iq" data-app="#">
+            <div class="project-image-wrapper">
+              <img src="images/project_NiveshIQ.png" alt="Nivesh IQ — AI-Powered Investment Assistant" class="project-image" loading="lazy">
+              <div class="project-hover-overlay">
+                <span class="project-hover-category">GEN AI / FINTECH</span>
+                <h3 class="project-hover-title">Nivesh IQ — AI-Powered Investment Assistant</h3>
+                <button class="project-view-btn" aria-label="Nivesh IQ — AI-Powered Investment Assistant">
+                  <span>Inspect Spec</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">GEN AI / FINTECH</span>
+              <h3 class="project-title">Nivesh IQ — AI-Powered Investment Assistant</h3>
+            </div>
+          </article>
+
+          <!-- Project 2: GN Saarthi — Campus AI Assistant -->
+          <article class="project-card neumorphic-outset" data-category="Gen AI" data-title="GN Saarthi — Campus AI Assistant" data-desc="A RAG-powered conversational assistant built specifically for college students navigating campus life. Semantically retrieves context from indexed institutional documents, then reasons over them with an LLM to give grounded, useful answers. Designed to feel less like a search engine, more like a knowledgeable senior." data-image="images/project_GnSaarthi.png" data-github="https://github.com/piyushkeshri8912/GN-Saarthi" data-app="https://gn-saarthi.vercel.app/">
+            <div class="project-image-wrapper">
+              <img src="images/project_GnSaarthi.png" alt="GN Saarthi — Campus AI Assistant" class="project-image" loading="lazy">
+              <div class="project-hover-overlay">
+                <span class="project-hover-category">GEN AI / RAG</span>
+                <h3 class="project-hover-title">GN Saarthi — Campus AI Assistant</h3>
+                <button class="project-view-btn" aria-label="Inspect Spec of GN Saarthi — Campus AI Assistant">
+                  <span>Inspect Spec</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">GEN AI / RAG</span>
+              <h3 class="project-title">GN Saarthi — Campus AI Assistant</h3>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Skills Grid Section -->
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <div class="container">
+        <h2 id="skills-title" class="section-title">TECHNICAL SKILLS</h2>
+        <p class="section-subtitle">Not just learnt but applied</p>
+        
+        <div class="skills-grid">
+          <!-- Languages Card -->
+          <div class="skills-card">
+            <div class="skills-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/>
+              </svg>
+              <h3 class="skills-category-title">Languages</h3>
+            </div>
+            <ul class="skills-list">
+              <li class="skill-badge">C++</li>
+              <li class="skill-badge">Python</li>
+              <li class="skill-badge">SQL</li>
+            </ul>
+          </div>
+
+          <!-- Developer Tools Card -->
+          <div class="skills-card">
+            <div class="skills-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="4 17 10 11 4 5"/>
+                <line x1="12" y1="19" x2="20" y2="19"/>
+              </svg>
+              <h3 class="skills-category-title">Developer Tools</h3>
+            </div>
+            <ul class="skills-list">
+              <li class="skill-badge">Git &amp; GitHub</li>
+              <li class="skill-badge">AI Code Editors & CLI</li>
+              <li class="skill-badge">Postman / API Testing</li>
+            </ul>
+          </div>
+
+          <!-- Hardware & OS Card -->
+          <div class="skills-card">
+            <div class="skills-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              <h3 class="skills-category-title">Backend / Cloud</h3>
+            </div>
+            <ul class="skills-list">
+              <li class="skill-badge">FastAPI</li>
+              <li class="skill-badge">Docker</li>
+              <li class="skill-badge">Redis</li>
+              <li class="skill-badge">PostgreSQL & Vector Databases</li>
+              <li class="skill-badge">Google Cloud Platform (GCP)</li>
+            </ul>
+          </div>
+
+          <!-- Core Concepts Card -->
+          <div class="skills-card">
+            <div class="skills-header">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+              <h3 class="skills-category-title">Gen AI / LLM</h3>
+            </div>
+            <ul class="skills-list">
+              <li class="skill-badge">Prompt Engineering</li>
+              <li class="skill-badge">API Integration</li>
+              <li class="skill-badge">LangChain (Agents, RAG, Tools)</li>
+              <li class="skill-badge">RAG Architecture & Vector Search</li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="section contact-section" aria-labelledby="contact-title">
+      <div class="container contact-container">
+        
+        <!-- Contact Content info -->
+        <div class="contact-info">
+          <span class="detail-label">Inquiries</span>
+          <h2 id="contact-title" class="section-title">COLLABORATE</h2>
+          <p class="contact-description">
+            I'm a student at IIT Gandhinagar, open to internships, research collaborations, and interesting problems in AI engineering, backend systems, or cloud infrastructure. If you're building something that needs someone who can move from idea to working code — reach out.
+          </p>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="contact-form neumorphic-outset" id="portfolio-contact-form" action="https://api.web3forms.com/submit" method="POST" role="form" aria-label="Send a message to Piyush Keshri">
+          <!-- Web3Forms Access Key -->
+          <input type="hidden" name="access_key" value="c0ddec41-2e3c-4081-9e62-ac0dfe23475f">
+          <!-- Spam prevention honeypot field -->
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+          <div class="form-group">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" id="name" name="name" class="input" placeholder="e.g. Piyush" required aria-required="true" autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" id="email" name="email" class="input" placeholder="e.g. name@domain.com" required aria-required="true" autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="category-select" class="form-label">Inquiry Category</label>
+            <select id="category-select" name="category" class="input" required aria-required="true">
+              <option value="" disabled selected>Select an option...</option>
+              <option value="research">Research Assistantship / Collaboration</option>
+              <option value="internship">Industry Internship Opportunities</option>
+              <option value="sponsorship">Project Sponsorship / Grants</option>
+              <option value="other">Technical Chat / Inquiries</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Inquiry Details</label>
+            <textarea id="message" name="message" class="input" rows="5" placeholder="Describe a bit" required aria-required="true"></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn-primary form-submit-btn">
+            transmit
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Project Lightbox Modal overlay - dynamically triggered by app.js -->
+  <div id="project-lightbox" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
+    <div class="modal neumorphic-outset">
+      
+      <!-- Close Button -->
+      <button class="modal-close-btn" aria-label="Close details modal" id="close-modal-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" x2="6" y1="6" y2="18"/>
+          <line x1="6" x2="18" y1="6" y2="18"/>
+        </svg>
+      </button>
+      
+      <!-- Modal Content -->
+      <div class="modal-content">
+        <div class="modal-image-container">
+          <img src="" alt="" id="modal-image" class="modal-image">
+        </div>
+        <div class="modal-details">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-sm); gap: var(--space-md); flex-wrap: wrap;">
+            <h3 class="modal-value" id="modal-title" style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--color-primary); margin: 0;">Project Name</h3>
+            <div class="modal-actions" style="display: flex; gap: var(--space-sm); align-items: center;">
+              <!-- GitHub Link -->
+              <a href="#" id="modal-github-link" target="_blank" rel="noopener noreferrer" class="modal-action-btn neumorphic-outset" aria-label="View Project Source Code" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: var(--radius-full); border: 1px solid var(--color-border); color: var(--color-secondary); transition: all var(--transition-fast); text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                  <path d="M9 18c-4.51 2-5-2-7-2"/>
+                </svg>
+              </a>
+              <!-- Live App Link -->
+              <a href="#" id="modal-app-link" target="_blank" rel="noopener noreferrer" class="modal-action-btn neumorphic-outset" aria-label="Launch Live Project Application" style="display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: var(--radius-full); border: 1px solid var(--color-border); color: var(--color-secondary); transition: all var(--transition-fast); text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <p id="modal-desc" class="modal-desc" style="margin-top: var(--space-sm);">Project details and architectural approach.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <p>&copy; 2026 Piyush Keshri. All rights reserved. Built with curiosity and a lot of terminal time.</p>
+      </div>
+      <div class="footer-right">
+        <ul class="footer-links">
+          <li>
+            <a href="https://github.com/piyushkeshri8912" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Piyush Keshri GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                <path d="M9 18c-4.51 2-5-2-7-2"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/piyush-keshri-681946312?" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="Piyush Keshri LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:piyushkeshri7970@gmail.com"  class="footer-link" aria-label="Piyush Keshri Email">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
