@@ -522,15 +522,26 @@
 
     <!-- About Section -->
     <section id="about" class="about-section section" aria-labelledby="about-title">
-      <div class="container" style="max-width: 800px; margin: 0 auto; text-align: center;">
+      <div class="container">
         <h2 id="about-title" class="section-title">ABOUT ME</h2>
-        <div class="bio-content" style="text-align: left; margin-top: var(--space-md);">
-          <p>
-            I'm a   undergrad at IIT Gandhinagar with a deep interest in building systems at the intersection of AI and software engineering. I think in pipelines — how data flows, how agents reason, and how backends scale. My work spans Generative AI, agentic architectures, and API design.
-          </p>
-          <p style="margin-top: var(--space-md);">
-           I'm drawn to problems where language models meet real-world constraints: retrieval systems that actually retrieve, agents that actually act, and backends that don't fall over. I'm also actively exploring cloud engineering and how modern infrastructure enables AI products to go from prototype to production.
-          </p>
+        <div class="about-container">
+          <!-- Profile Image Column -->
+          <div class="about-image-column">
+            <div class="profile-image-wrapper neumorphic-outset">
+              <img src="images/profile_pic.png" alt="Piyush Keshri - Portrait" class="profile-image" loading="lazy">
+            </div>
+          </div>
+          <!-- Bio Content Column -->
+          <div class="about-bio-column">
+            <div class="bio-content">
+              <p>
+                I'm a   undergrad at IIT Gandhinagar with a deep interest in building systems at the intersection of AI and software engineering. I think in pipelines — how data flows, how agents reason, and how backends scale. My work spans Generative AI, agentic architectures, and API design.
+              </p>
+              <p>
+               I'm drawn to problems where language models meet real-world constraints: retrieval systems that actually retrieve, agents that actually act, and backends that don't fall over. I'm also actively exploring cloud engineering and how modern infrastructure enables AI products to go from prototype to production.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -573,7 +584,7 @@
         <div id="project-grid" class="project-grid" role="region" aria-live="polite">
           
           <!-- Project 1: Nivesh IQ — AI-Powered Investment Assistant-->
-          <article class="project-card neumorphic-outset" data-category="Gen AI" data-title="Nivesh IQ " data-desc="Nivesh IQ is an AI-powered platform that helps users make sense of their investments. It combines financial data processing with an intelligent conversational layer — giving users portfolio insights, analysis, and recommendations through a natural language interface. Built with a FastAPI backend, LangChain agent pipeline, and a React frontend." data-image="images/project_NiveshIQ.png" data-github="https://github.com/piyushkeshri8912/nivesh-iq" data-app="#">
+          <article class="project-card neumorphic-outset" data-category="Gen AI" data-title="Nivesh IQ " data-desc="Nivesh IQ is an AI-powered platform that helps users make sense of their investments. It combines financial data processing with an intelligent conversational layer — giving users portfolio insights, analysis, and recommendations through a natural language interface. Built with a FastAPI backend, LangChain agent pipeline, and a React frontend." data-image="images/project_NiveshIQ.png" data-github="https://github.com/piyushkeshri8912/nivesh-iq" data-app="https://nivesh-iq-portfolio-intellegence.vercel.app/" data-tags="Gen AI, FinTech, LangChain, FastAPI, Cloud Run">
             <div class="project-image-wrapper">
               <img src="images/project_NiveshIQ.png" alt="Nivesh IQ — AI-Powered Investment Assistant" class="project-image" loading="lazy">
               <div class="project-hover-overlay">
@@ -592,7 +603,7 @@
           </article>
 
           <!-- Project 2: GN Saarthi — Campus AI Assistant -->
-          <article class="project-card neumorphic-outset" data-category="Gen AI" data-title="GN Saarthi — Campus AI Assistant" data-desc="A RAG-powered conversational assistant built specifically for college students navigating campus life. Semantically retrieves context from indexed institutional documents, then reasons over them with an LLM to give grounded, useful answers. Designed to feel less like a search engine, more like a knowledgeable senior." data-image="images/project_GnSaarthi.png" data-github="https://github.com/piyushkeshri8912/GN-Saarthi" data-app="https://gn-saarthi.vercel.app/">
+          <article class="project-card neumorphic-outset" data-category="Gen AI" data-title="GN Saarthi — Campus AI Assistant" data-desc="A RAG-powered conversational assistant built specifically for college students navigating campus life. Semantically retrieves context from indexed institutional documents, then reasons over them with an LLM to give grounded, useful answers. Designed to feel less like a search engine, more like a knowledgeable senior." data-image="images/project_GnSaarthi.png" data-github="https://github.com/piyushkeshri8912/GN-Saarthi" data-app="https://gn-saarthi.vercel.app/" data-tags="Gen AI, RAG, LangChain, FastAPI, RAG Architecture">
             <div class="project-image-wrapper">
               <img src="images/project_GnSaarthi.png" alt="GN Saarthi — Campus AI Assistant" class="project-image" loading="lazy">
               <div class="project-hover-overlay">
@@ -663,6 +674,7 @@
             </div>
             <ul class="skills-list">
               <li class="skill-badge">FastAPI</li>
+              <li class="skill-badge">SQLAlchemy</li>
               <li class="skill-badge">Docker</li>
               <li class="skill-badge">Redis</li>
               <li class="skill-badge">PostgreSQL & Vector Databases</li>
@@ -789,6 +801,7 @@
               </a>
             </div>
           </div>
+          <div id="modal-tags" class="project-tags" style="margin-top: var(--space-md);"></div>
           <p id="modal-desc" class="modal-desc" style="margin-top: var(--space-sm);">Project details and architectural approach.</p>
         </div>
       </div>

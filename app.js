@@ -109,6 +109,7 @@ function initLightbox() {
   const modalDesc = document.getElementById('modal-desc');
   const modalGithubLink = document.getElementById('modal-github-link');
   const modalAppLink = document.getElementById('modal-app-link');
+  const modalTags = document.getElementById('modal-tags');
 
   let triggerElement = null; // Store element that opened modal to restore focus later
 
@@ -130,6 +131,20 @@ function initLightbox() {
 
     if (modalGithubLink) modalGithubLink.setAttribute('href', githubUrl);
     if (modalAppLink) modalAppLink.setAttribute('href', appUrl);
+
+    // Populate tags
+    if (modalTags) {
+      const tagsStr = card.getAttribute('data-tags');
+      modalTags.innerHTML = '';
+      if (tagsStr) {
+        tagsStr.split(',').forEach(tag => {
+          const tagEl = document.createElement('span');
+          tagEl.className = 'project-tag';
+          tagEl.textContent = tag.trim();
+          modalTags.appendChild(tagEl);
+        });
+      }
+    }
 
     // Show Lightbox
     lightbox.classList.remove('hidden');
